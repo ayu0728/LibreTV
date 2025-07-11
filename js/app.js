@@ -27,9 +27,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 设置默认API选择（如果是第一次加载）
     if (!localStorage.getItem('hasInitializedDefaults')) {
-        // 默认选中资源
-        selectedAPIs = ["tyyszy", "bfzy", "dyttzy", "ruyi"];
-        localStorage.setItem('selectedAPIs', JSON.stringify(selectedAPIs));
+        // 默认全选所有源（默认源 + 已存在的自定义源）
+        const defaultNames = defaultApis.map(api => api.name);
+        const customNames  = JSON.parse(localStorage.getItem('customApis') || '[]')
+                               .map(api => api.name);
+        selectedAPIs = [...new Set([...defaultNames, ...customNames])]; // 去重
 
         // 默认选中过滤开关
         localStorage.setItem('yellowFilterEnabled', 'true');
