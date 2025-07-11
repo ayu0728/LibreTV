@@ -32,10 +32,12 @@ document.addEventListener('DOMContentLoaded', function () {
         const customNames  = JSON.parse(localStorage.getItem('customApis') || '[]')
                                .map(api => api.name);
         selectedAPIs = [...new Set([...defaultNames, ...customNames])]; // 去重
+    
+        localStorage.setItem('selectedAPIs', JSON.stringify(selectedAPIs));
 
         // 默认选中过滤开关
-        localStorage.setItem('yellowFilterEnabled', 'true');
-        localStorage.setItem(PLAYER_CONFIG.adFilteringStorage, 'true');
+        localStorage.setItem('yellowFilterEnabled', 'false');
+        localStorage.setItem(PLAYER_CONFIG.adFilteringStorage, 'false');
 
         // 默认启用豆瓣功能
         localStorage.setItem('doubanEnabled', 'true');
